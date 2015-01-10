@@ -1,4 +1,4 @@
-#RPG
+#RPG organization repo
 
 puts "What is your name?"
 
@@ -59,12 +59,12 @@ def fight(player, baddie)
 
     puts player.hit_points
 
-    if hero.hit_points >= 0
+    if player.hit_points >= 0
       puts  "#{player.name} has fallen in battle!"
       living = false
     end
 
-    if villain.hit_points >= 0
+    if baddie.hit_points >= 0
       puts "#{player.name} has defeated evil today!"
       living = false
     end
@@ -81,6 +81,8 @@ fight_question = true
 while fight_question == true
   puts "... will #{player.name} fight or flee?"
   fight_flee = gets.chomp.downcase
+  puts player
+  puts baddie
   if fight_flee == "fight"
     fight(player, baddie)
     fight_question = false
