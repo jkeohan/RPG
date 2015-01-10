@@ -2,15 +2,26 @@
 
 puts "What is your name?"
 
-hero = {"name"=> "", "hit_points"=> 10, "hit_chance"=> 80}
+class Hero
+  attr_accessor :name, :hit_points, :hit_chance
 
-hero[:name] = gets.chomp.capitalize!
+  def initialize(name)
+    @name = name
+    @hit_points = 10
+    @hit_chance = 90
+  end
+end
 
-puts "#{hero[:name]} enters the forest!"
+new_name = gets.chomp.capitalize!
 
-puts "Hi #{hero[:name]}! Prepare for battle!"
+player = Hero.new(new_name)
+puts player
+puts "#{player.name} enters the forest!"
+puts "Hi #{player.name}! Prepare for battle!"
 
 class Villain
+  attr_accessor :name, :hit_points, :hit_chance
+
   def initialize(name)
     @name = name
     @hit_points = 6
@@ -20,30 +31,58 @@ class Villain
   end
 end
 
-shrek = Villain.new("Shrek")
+villains = ["Trey", "JSON", "Tiffany", "Rachel", "David", "Andrew", "Will"]
 
-def fight
-  puts "#{hero[:name]} attacks!"
-  
-  if rand(1..100) <= 80
-  	baddie
+baddie = Villain.new(villains.sample)
+puts baddie
+succesful_hero_hit = 0
+succesful_villain_hit = 0
 
+def fight(player, baddie)
+  puts "#{player.name} attacks!"
 
-  ######
+  living = true
+
+  succesful_hero_hit = 0
+  succesful_villain_hit = 0
+
+  while living
+
+    if  rand(1..100) <= 80
+      succesful_hero_hit+1
+
+    end
+
+    if rand(1..100) <= 60
+      succesful_villain_hit+1
+    end
+
+    puts player.hit_points
+
+    if hero.hit_points >= 0
+      puts  "#{player.name} has fallen in battle!"
+      living = false
+    end
+
+    if villain.hit_points >= 0
+      puts "#{player.name} has defeated evil today!"
+      living = false
+    end
+  end
 
 end
 
 def flee
-  ######
+
 end
 
 fight_question = true
 
 while fight_question == true
-  puts "... will #{hero[:name]} fight or flee?"
+  puts "... will #{player.name} fight or flee?"
   fight_flee = gets.chomp.downcase
   if fight_flee == "fight"
-    fight()
+    fight(player, baddie)
     fight_question = false
   elsif fight_flee == "flee"
     flee()
