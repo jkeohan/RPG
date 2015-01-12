@@ -18,7 +18,7 @@ end # Hero constructor
 
 new_name = gets.chomp.capitalize!
 
-player = Hero.new(new_name, 10, 80, 5, 5)
+player = Hero.new(new_name, 10, 5, 5)
 # puts "#{player.name}"
 
 lines = ["After another long day of training outside you've returned to the dojo...",
@@ -32,10 +32,11 @@ lines.each {|each|
 sleep 0.5}
 
 class Villain
-  attr_accessor :name, :hit_points, :hit_chance, :str, :defense
+  attr_accessor :name, :max_hp, :hit_points, :hit_chance, :str, :defense
 
   def initialize(name, hit_points, hit_chance, str, defense)
     @name = name
+    @max_hp = hit_points
     @hit_points = hit_points
     @hit_chance = hit_chance
     @str = str
@@ -67,16 +68,16 @@ def encounter(player, shuffled)
   end # difficulty function
 
   def level_up_check(player, baddie)
-  	if player.encounters % 3 == 0 && player.encounters > 1 
-  		puts "Congrats! You've leveled up. You get 1 skill point. Do you want str or defense?"
-  			skill_choice = gets.chomp.downcase
-  			if skill_choice == "str"
-  				player.str += 1
-  			elsif skill_choice == "defense"
-  				player.defense += 1
-  			end
-  			increase_difficulty(baddie)
-  		end
+    if player.encounters % 3 == 0 && player.encounters > 1
+      puts "Congrats! You've leveled up. You get 1 skill point. Do you want str or defense?"
+      skill_choice = gets.chomp.downcase
+      if skill_choice == "str"
+        player.str += 1
+      elsif skill_choice == "defense"
+        player.defense += 1
+      end
+      increase_difficulty(baddie)
+    end
   end
 
 
@@ -85,42 +86,61 @@ def encounter(player, shuffled)
 
   def fight(player, baddie)
     sleep 0.75
+
     puts "#{player.name} attacks first with #{player.max_hp} health."
+
+
 
     moves = ["karate chops", "kicks", "punches", "slaps"]
 
     while player.hit_points > 0 && baddie.hit_points > 0
-
       hero_hit = rand(1..player.str)
-
       hero_block = rand(1..player.defense)
       baddie_hit = rand(1..baddie.str)
       baddie_block = rand(1..baddie.defense)
+      baddie_die_roll = rand(1..100)
 
       if player.hit_points > 0
-        if player.hit_chance  > hero_hit
-          sleep 0.75
-          puts "#{player.name} #{moves.sample} #{baddie.name}!"
-          successful_hit = true
-          baddie.hit_points -= rand(2..4)
-          puts "#{baddie.name} is at #{baddie.hit_points} health."
-        else
-          sleep 0.75
-          puts "#{player.name} swings and misses!"
+        if hero_hit > (baddie_block*2)
+          damage = hero_hit - baddie_block
+          if damage > 0
+            baddie.hit_points -= damage
+            sleep 0.75
+            puts "#{player.name} #{moves.sample} #{baddie.name}!"
+            puts "#{baddie.name} is at #{baddie.hit_points} health."
+          elsif damage < 0
+            sleep 0.75
+            puts "#{player.name} swings and misses!"
+          end
         end
-
       end
 
-      if baddie.hit_points > 0
-        if baddie.hit_chance > baddie_hit
-          puts "#{baddie.name} #{moves.sample} #{player.name}!"
-          player.hit_points -= rand(1..3)
 
-          puts "You are at #{player.hit_points} health."
-        else
-          puts "#{baddie.name} swings hard but you dodge!"
+
+      while baddie.hit_chance == 90
+        if baddie.hit_chance > baddie_die_roll
+          puts "#{baddie.name} #{moves.sample} #{player.name}!"
+          damage = baddie_hit - hero_block
+          if damage > 0
+            player.hit_points -= damage
+            puts "You are at #{player.hit_points} health."
+          elsif damage < 0
+            puts "#{baddie.name} swings hard but you dodge!"
+          end
+        elsif baddie.hit_points < baddie.max_hp/2
+          baddie.hit_chance = 50
+          damage = baddie_hit - hero_block
+          if damage > 0
+            player.hit_points -= damage
+            puts "You are at #{player.hit_points} health."
+          elsif damage < 0
+            puts "#{baddie.name} swings hard but you dodge!"
+          end
         end
-      else
+      end
+
+
+      if baddie.hit_points <= 0
         player.encounters += 1
         player.max_hp += 1
         puts "#{baddie.name} is defeated! #{player.name} is now at #{player.max_hp} health! #{player.encounters} more of these villains to go..."
@@ -150,8 +170,8 @@ def encounter(player, shuffled)
     end
 
   end # fight prompting
-  
-  
+
+
 
 end # encounters
 
