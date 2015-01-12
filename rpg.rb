@@ -1,5 +1,6 @@
 #RPG own repo
 
+
 puts "What is your name?"
 
 class Hero
@@ -14,7 +15,7 @@ end
 
 new_name = gets.chomp.capitalize!
 
-player = Hero.new(new_name)
+player = Hero.new(new_name, 10, 80)
 puts player
 puts "#{player.name} enters the forest!"
 puts "Hi #{player.name}! Prepare for battle!"
@@ -32,8 +33,10 @@ class Villain
 end
 
 villains = ["Trey", "JSON", "Tiffany", "Rachel", "David", "Andrew", "Will"]
+random_baddie_hp = rand(1..8)
+random_baddie_hit = rand(1..60)
 
-baddie = Villain.new(villains.sample)
+baddie = Villain.new(villains.sample, random_baddie_hp, random_baddie_hit)
 puts baddie
 succesful_hero_hit = 0
 succesful_villain_hit = 0
@@ -47,7 +50,8 @@ def fight(player, baddie)
   succesful_villain_hit = 0
 
   while living
-
+    hero_hit = rand(0..100)
+    baddie_hit = rand(0..100)
     if  rand(1..100) <= 80
       succesful_hero_hit+1
 
@@ -59,12 +63,12 @@ def fight(player, baddie)
 
     puts player.hit_points
 
-    if player.hit_points >= 0
+    if player.hit_points < 0
       puts  "#{player.name} has fallen in battle!"
       living = false
     end
 
-    if baddie.hit_points >= 0
+    if baddie.hit_points < 0
       puts "#{player.name} has defeated evil today!"
       living = false
     end
