@@ -4,14 +4,15 @@
 puts "What is your name?"
 
 class Hero
-  attr_accessor :name, :hit_points, :hit_chance
+  attr_accessor :name, :max_hp, :hit_points, :hit_chance
 
-  def initialize(name, hit_points, hit_chance)
+  def initialize(name, max_hp, hit_chance)
     @name = name
-    @hit_points = hit_points
+    @max_hp = max_hp
+    @hit_points = max_hp
     @hit_chance = hit_chance
   end
-end
+end # Hero constructor
 
 new_name = gets.chomp.capitalize!
 
@@ -30,7 +31,7 @@ class Villain
     # @strength = 4
     # @defense = 4
   end
-end
+end # Villain constructor
 
 villains = ["Trey", "JSON", "Tiffany", "Rachel", "David", "Andrew", "Will"]
 random_baddie_hp = rand(1..8)
@@ -45,7 +46,7 @@ def fight(player, baddie)
   puts "#{player.name} attacks first!"
 
   while player.hit_points > 0 && baddie.hit_points > 0
-
+    puts player.max_hp
     hero_hit = rand(0..100)
     baddie_hit = rand(0..100)
 
@@ -59,26 +60,29 @@ def fight(player, baddie)
     end
   else
     puts "player dead"
+
   end
 
     if baddie.hit_points > 0
     if baddie.hit_chance > baddie_hit
       puts "baddie hits"
-      player.hit_points -= rand(2..4)
+      player.hit_points -= rand(1..3)
 
       puts "you are at #{player.hit_points} life"
     else
-      puts "baddie missed"
+      puts "baddie missed."
     end
   else
-    puts "baddie dead"
+    
+    player.max_hp += 1
+    puts "baddie dead! #{player.name} is now at #{player.max_hp} life!"
   end
   end
 
-end
+end #fight ends
 
 def flee
-
+  puts "#{player.name} flees from #{baddie.name}."
 end
 
 fight_question = true
@@ -96,3 +100,4 @@ while fight_question == true
     fight_question = false
   end
 end
+
