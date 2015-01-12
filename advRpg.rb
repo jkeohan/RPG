@@ -3,20 +3,22 @@ puts "Welcome!"
 puts "To begin our journey, enter your name:"
 
 class Hero
-  attr_accessor :name, :max_hp, :hit_points, :hit_chance, :encounters
+  attr_accessor :name, :max_hp, :hit_points, :hit_chance, :str, :defense, :encounters
 
-  def initialize(name, max_hp, hit_chance)
+  def initialize(name, max_hp, str, defense)
     @name = name
     @max_hp = max_hp
     @hit_points = max_hp
-    @hit_chance = hit_chance
-    @encounters = 20
+    # @hit_chance = hit_chance
+    @str = str
+    @defense = defense
+    @encounters = 0
   end
 end # Hero constructor
 
 new_name = gets.chomp.capitalize!
 
-player = Hero.new(new_name, 10, 80)
+player = Hero.new(new_name, 10, 80, 5, 5)
 # puts "#{player.name}"
 
 lines = ["After another long day of training outside you've returned to the dojo...",
@@ -30,12 +32,14 @@ lines.each {|each|
 sleep 0.5}
 
 class Villain
-  attr_accessor :name, :hit_points, :hit_chance
+  attr_accessor :name, :hit_points, :hit_chance, :str, :defense
 
-  def initialize(name, hit_points, hit_chance)
+  def initialize(name, hit_points, hit_chance, str, defense)
     @name = name
     @hit_points = hit_points
     @hit_chance = hit_chance
+    @str = str
+    @defense = defense
 
   end
 end # Villain constructor
@@ -49,25 +53,34 @@ shuffled = names.shuffle
 def encounter(player, shuffled)
   villain = shuffled.delete_at(0)
   random_baddie_hp = rand(1..8)
-  random_baddie_hit = rand(1..60)
+  # random_baddie_hit = rand(1..60)
 
-  baddie = Villain.new(villain, random_baddie_hp, random_baddie_hit)
+  baddie = Villain.new(villain, random_baddie_hp, 90, 4, 4)
 
   def increase_difficulty(baddie)
-    if baddie.name == "Master Sean" || baddie.name == "Crane Master Sam" || baddie.name == "Drunken Master Crawford" || baddie.name == "Jerome"
-      # =~ /[Sean|Sam|Crawford]/ ask Sean about this
 
-      baddie.hit_chance *= 2 # needs to be atleast 2 to be predictably hard
-      baddie.hit_points *= 10
-
-    end
+    baddie.hit_points += 1
+    baddie.str += 1
+    baddie.defense += 1
 
 
   end # difficulty function
 
-  increase_difficulty(baddie)
+  def level_up_check(player, baddie)
+  	if player.encounters % 3 == 0 && player.encounters > 1 
+  		puts "Congrats! You've leveled up. You get 1 skill point. Do you want str or defense?"
+  			skill_choice = gets.chomp.downcase
+  			if skill_choice == "str"
+  				player.str += 1
+  			elsif skill_choice == "defense"
+  				player.defense += 1
+  			end
+  			increase_difficulty(baddie)
+  		end
+  end
 
-  puts "#{player.name} comes across #{baddie.name}. They appear to have #{baddie.hit_points} health and #{baddie.hit_chance} chance to hit"
+
+  puts "#{player.name} comes across #{baddie.name}. They appear to have #{baddie.hit_points} health, #{baddie.str} strength, #{baddie.defense} defense and #{baddie.hit_chance} chance to hit"
 
 
   def fight(player, baddie)
@@ -78,22 +91,23 @@ def encounter(player, shuffled)
 
     while player.hit_points > 0 && baddie.hit_points > 0
 
-      hero_hit = rand(0..100)
-      baddie_hit = rand(0..100)
+      hero_hit = rand(1..player.str)
+
+      hero_block = rand(1..player.defense)
+      baddie_hit = rand(1..baddie.str)
+      baddie_block = rand(1..baddie.defense)
 
       if player.hit_points > 0
         if player.hit_chance  > hero_hit
           sleep 0.75
           puts "#{player.name} #{moves.sample} #{baddie.name}!"
+          successful_hit = true
           baddie.hit_points -= rand(2..4)
           puts "#{baddie.name} is at #{baddie.hit_points} health."
         else
           sleep 0.75
           puts "#{player.name} swings and misses!"
         end
-      else
-        sleep 0.75
-        puts "#{player.name} has been defeated!"
 
       end
 
@@ -107,9 +121,10 @@ def encounter(player, shuffled)
           puts "#{baddie.name} swings hard but you dodge!"
         end
       else
-        player.encounters -= 1
+        player.encounters += 1
         player.max_hp += 1
         puts "#{baddie.name} is defeated! #{player.name} is now at #{player.max_hp} health! #{player.encounters} more of these villains to go..."
+        level_up_check(player, baddie)
       end
     end
 
@@ -133,16 +148,19 @@ def encounter(player, shuffled)
       flee(player, baddie)
       fight_question = false
     end
+
   end # fight prompting
+  
+  
 
 end # encounters
 
 gameover = false
 seppuku_chance = rand(1..100)
 
-while player.encounters > 0 && player.hit_points > 0
+while player.encounters < 100 && player.hit_points > 0
   encounter(player, shuffled)
-  if player.encounters <= 0
+  if player.encounters >= 100
     puts "You've defeated the whole Peach clan!!!"
   end
 
@@ -151,7 +169,7 @@ while player.encounters > 0 && player.hit_points > 0
     puts "You return to your dojo in shame... Your master asks you to commit seppuku..."
     if seppuku_chance < 50
       puts "#{player.name}: This is Kung Fu not feudal Japan... tsk!"
-      sleep 2 
+      sleep 2
       puts "Your master demonstrates the infamous Five Point Palm Exploding Heart Technique... Game Over!"
       gameover = true
     else
