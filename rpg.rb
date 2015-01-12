@@ -1,14 +1,14 @@
-#RPG organization repo
+#RPG own repo
 
 puts "What is your name?"
 
 class Hero
   attr_accessor :name, :hit_points, :hit_chance
 
-  def initialize(name)
+  def initialize(name, hit_points, hit_chance)
     @name = name
-    @hit_points = 10
-    @hit_chance = 90
+    @hit_points = hit_points
+    @hit_chance = hit_chance
   end
 end
 
@@ -22,10 +22,10 @@ puts "Hi #{player.name}! Prepare for battle!"
 class Villain
   attr_accessor :name, :hit_points, :hit_chance
 
-  def initialize(name)
+  def initialize(name, hit_points, hit_chance)
     @name = name
-    @hit_points = 6
-    @hit_chance = 60
+    @hit_points = hit_points
+    @hit_chance = hit_chance
     # @strength = 4
     # @defense = 4
   end
