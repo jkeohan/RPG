@@ -1,5 +1,5 @@
 #RPG own repo
-sleep 1
+sleep 0.5
 puts "▄▄▄█████▓ ██░ ██ ▓█████           █     █░ ▄▄▄       ██▀███   ██▀███   ██▓ ▒█████   ██▀███   "
 puts "▓  ██▒ ▓▒▓██░ ██▒▓█   ▀          ▓█░ █ ░█░▒████▄    ▓██ ▒ ██▒▓██ ▒ ██▒▓██▒▒██▒  ██▒▓██ ▒ ██▒ "
 puts "▒ ▓██░ ▒░▒██▀▀██░▒███            ▒█░ █ ░█ ▒██  ▀█▄  ▓██ ░▄█ ▒▓██ ░▄█ ▒▒██▒▒██░  ██▒▓██ ░▄█ ▒ "
@@ -33,7 +33,7 @@ player = Hero.new(new_name, 10, 80)
 puts
 lines = ["After another long day of training outside you've returned to the dojo...",
          "'What's this?!' You find your fellow students tending to your master..",
-         "Defeated and shamed, he looks towards his prized pupil...\n Master: Avenge me #{player.name}...",
+         "Defeated and shamed, he looks towards his prized pupil...\nMaster: Avenge me #{player.name}...",
          "You realize this could only be the work of the Peach clan...",
          "They must pay... ALL of them!"]
 
