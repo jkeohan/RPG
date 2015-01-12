@@ -17,7 +17,7 @@ end # Hero constructor
 new_name = gets.chomp.capitalize!
 
 player = Hero.new(new_name, 10, 80)
-puts player
+sleep 1
 puts "#{player.name} enters the forest!"
 puts "Hi #{player.name}! Prepare for battle!"
 
@@ -43,22 +43,28 @@ succesful_hero_hit = 0
 succesful_villain_hit = 0
 
 def fight(player, baddie)
+  sleep 1
   puts "#{player.name} attacks first!"
 
   while player.hit_points > 0 && baddie.hit_points > 0
-    puts player.max_hp
+    sleep 1
+    puts "#{player.name} enters with #{player.max_hp} life"
+    
     hero_hit = rand(0..100)
     baddie_hit = rand(0..100)
 
     if player.hit_points > 0
     if player.hit_chance  > hero_hit
+      sleep 1
       puts "succesful hit!"
       baddie.hit_points -= rand(2..4)
       puts "baddie is at #{baddie.hit_points}"
     else
+      sleep 1
       puts "you missed"
     end
   else
+    sleep 1
     puts "player dead"
 
   end
@@ -81,13 +87,15 @@ def fight(player, baddie)
 
 end #fight ends
 
-def flee
+def flee(player, baddie)
+  sleep 1
   puts "#{player.name} flees from #{baddie.name}."
 end
 
 fight_question = true
 
 while fight_question == true
+  sleep 1
   puts "... will #{player.name} fight or flee?"
   fight_flee = gets.chomp.downcase
   puts player
@@ -96,7 +104,7 @@ while fight_question == true
     fight(player, baddie)
     fight_question = false
   elsif fight_flee == "flee"
-    flee()
+    flee(player, baddie)
     fight_question = false
   end
 end
