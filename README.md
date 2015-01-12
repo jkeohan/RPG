@@ -20,7 +20,7 @@ They will not be as easy as the others...
 
 ---
 To start run the_warrior.rb in your terminal.
-You will need to provide your name at the beginning.
+You will need to provide your name at the beginning. Don't worry about case sensitivity, we got that covered!
 
 Both you and Peach clan start with 10 health/hit points (hps). Some of the clan will be stronger so watch out!
 
@@ -32,3 +32,6 @@ Flee: You can choose to flee rather than attack but this will cost you 2 hps. Ov
 
 Choose wisely!
 
+```
+
+```
