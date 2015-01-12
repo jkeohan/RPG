@@ -49,28 +49,23 @@ def fight(player, baddie)
   succesful_hero_hit = 0
   succesful_villain_hit = 0
 
-  while living
+  while player.hit_points > 0 && baddie.hit_points > 0
     hero_hit = rand(0..100)
     baddie_hit = rand(0..100)
-    if  rand(1..100) <= 80
+    if  player.hit_chance  > hero_hit
+      puts "succesful hit!"
       succesful_hero_hit+1
-
+      puts baddie.hit_points
+    else
+      puts "you missed"
     end
 
-    if rand(1..100) <= 60
+    if baddie.hit_chance > baddie_hit
+      puts "baddie hits"
       succesful_villain_hit+1
-    end
-
-    puts player.hit_points
-
-    if player.hit_points < 0
-      puts  "#{player.name} has fallen in battle!"
-      living = false
-    end
-
-    if baddie.hit_points < 0
-      puts "#{player.name} has defeated evil today!"
-      living = false
+      puts player.hit_points
+    else
+      puts "baddie missed"
     end
   end
 
