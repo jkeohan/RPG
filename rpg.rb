@@ -110,9 +110,12 @@ while fight_question == true
 end
 end
 
-
+while player.hit_points > 0
 encounter(player)
-
+  if player.hit_points <= 0
+    puts "You're dead. Game over!"
+  end
+end
 
 
 
