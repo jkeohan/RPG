@@ -21,6 +21,7 @@ sleep 1
 puts "#{player.name} enters the forest!"
 puts "Hi #{player.name}! Prepare for battle!"
 
+
 class Villain
   attr_accessor :name, :hit_points, :hit_chance
 
@@ -33,14 +34,13 @@ class Villain
   end
 end # Villain constructor
 
+def encounter(player)
 villains = ["Trey", "JSON", "Tiffany", "Rachel", "David", "Andrew", "Will"]
 random_baddie_hp = rand(1..8)
 random_baddie_hit = rand(1..60)
 
 baddie = Villain.new(villains.sample, random_baddie_hp, random_baddie_hit)
-puts baddie
-succesful_hero_hit = 0
-succesful_villain_hit = 0
+puts "you have encountered #{baddie.name}. They appear to have #{baddie.hit_points} life and #{baddie.hit_chance} chance to hit"
 
 def fight(player, baddie)
   sleep 1
@@ -108,4 +108,11 @@ while fight_question == true
     fight_question = false
   end
 end
+end
+
+
+encounter(player)
+
+
+
 
