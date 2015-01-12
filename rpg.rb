@@ -10,7 +10,7 @@ class Hero
     @max_hp = max_hp
     @hit_points = max_hp
     @hit_chance = hit_chance
-    @encounters = 10
+    @encounters = 20
   end
 end # Hero constructor
 
@@ -43,7 +43,7 @@ end # Villain constructor
 sleep 0.75
 puts "#{player.name} takes off after the villains!"
 
-names = ["Giraud", "Joe", "Joel", "Trey", "JSON", "Tiffany", "Rachel", "Andrew", "Will", "Ricki", "Shosh", "Gen", "Sean", "Sam", "Crawford"]
+names = ["Noel", "Ciara", "Alvin", "Jerome", "Tyler", "Kyle", "Katrina", "Marc", "Adam", "David", "Sean", "Gabriel", "Lauren", "Giraud", "Joe", "Joel", "Trey", "JSON", "Tiffany", "Rachel", "Andrew", "Will", "Ricki", "Shosh", "Gen", "Master Sean", "Crane Master Sam", "Drunken Master Crawford"]
 shuffled = names.shuffle
 
 def encounter(player, shuffled)
@@ -54,7 +54,7 @@ def encounter(player, shuffled)
   baddie = Villain.new(villain, random_baddie_hp, random_baddie_hit)
 
   def increase_difficulty(baddie)
-    if baddie.name == "Sean" || baddie.name == "Sam" || baddie.name == "Crawford"
+    if baddie.name == "Master Sean" || baddie.name == "Crane Master Sam" || baddie.name == "Drunken Master Crawford" || baddie.name == "Jerome"
       # =~ /[Sean|Sam|Crawford]/ ask Sean about this
 
       baddie.hit_chance *= 2 # needs to be atleast 2 to be predictably hard
@@ -67,12 +67,12 @@ def encounter(player, shuffled)
 
   increase_difficulty(baddie)
 
-  puts "#{player.name} comes across #{baddie.name}. They appear to have #{baddie.hit_points} life and #{baddie.hit_chance} chance to hit"
+  puts "#{player.name} comes across #{baddie.name}. They appear to have #{baddie.hit_points} health and #{baddie.hit_chance} chance to hit"
 
 
   def fight(player, baddie)
     sleep 0.75
-    puts "#{player.name} attacks first with #{player.max_hp} life"
+    puts "#{player.name} attacks first with #{player.max_hp} health."
 
     moves = ["karate chops", "kicks", "punches", "slaps"]
 
@@ -86,7 +86,7 @@ def encounter(player, shuffled)
           sleep 0.75
           puts "#{player.name} #{moves.sample} #{baddie.name}!"
           baddie.hit_points -= rand(2..4)
-          puts "#{baddie.name} is at #{baddie.hit_points}"
+          puts "#{baddie.name} is at #{baddie.hit_points} health."
         else
           sleep 0.75
           puts "#{player.name} swings and misses!"
@@ -102,14 +102,14 @@ def encounter(player, shuffled)
           puts "#{baddie.name} #{moves.sample} #{player.name}!"
           player.hit_points -= rand(1..3)
 
-          puts "You are at #{player.hit_points} life"
+          puts "You are at #{player.hit_points} health."
         else
-          puts "#{baddie.name} missed."
+          puts "#{baddie.name} swings hard but you dodge!"
         end
       else
         player.encounters -= 1
         player.max_hp += 1
-        puts "#{baddie.name} is defeated! #{player.name} is now at #{player.max_hp} life! #{player.encounters} more of these villains to go..."
+        puts "#{baddie.name} is defeated! #{player.name} is now at #{player.max_hp} health! #{player.encounters} more of these villains to go..."
       end
     end
 
@@ -118,13 +118,12 @@ def encounter(player, shuffled)
   def flee(player, baddie)
     sleep 0.75
     player.max_hp -= 2
-    puts "#{player.name} flees from #{baddie.name}. #{player.encounters} still to go... but you have only #{player.max_hp} life!"
+    puts "#{player.name} flees from #{baddie.name}. #{player.encounters} still to go... but you have only #{player.max_hp} health!"
   end # flee function
 
   fight_question = true
 
   while fight_question == true
-    sleep 0.75
     puts "... will #{player.name} fight or flee?"
     fight_flee = gets.chomp.downcase
     if fight_flee == "fight"
@@ -147,14 +146,16 @@ while player.encounters > 0 && player.hit_points > 0
     puts "You've defeated the whole Peach clan!!!"
   end
 
-  
+
   while player.hit_points <= 0 && gameover == false
     puts "You return to your dojo in shame... Your master asks you to commit seppuku..."
     if seppuku_chance < 50
-      puts "You refuse and fail to regain your honor... tsk! Game Over!"
+      puts "#{player.name}: This is Kung Fu not feudal Japan... tsk!"
+      sleep 2 
+      puts "Your master demonstrates the infamous Five Point Palm Exploding Heart Technique... Game Over!"
       gameover = true
     else
-      puts "At least you didn't fail at this... Game over!"
+      puts "At least you don't fail at everything... Game over!"
       gameover = true
     end
   end
