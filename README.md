@@ -179,7 +179,7 @@ Bruce kicks JSON!
 JSON is at 0 health.
 JSON is defeated! Bruce is now at 14 health! 16 more of these villains to go...
 
-Bruce comes across Master Sean. They appear to have 60 health and 80 chance to hit
+Bruce comes across Master West. They appear to have 60 health and 80 chance to hit
 ... will Bruce fight or flee?
 fight
 
@@ -193,8 +193,8 @@ Bruce attacks first with 14 health.
  ',/  / /        
  ''-  -          
 
-Bruce punches Master Sean!
-Master Sean is at 58 health.
+Bruce punches Master West!
+Master West is at 58 health.
      ,.          
     \-'_        
     / ___/o      
@@ -204,7 +204,7 @@ Master Sean is at 58 health.
  ',/  / /        
  ''-  -          
 
-Master Sean punches Bruce!
+Master West punches Bruce!
 You are at 7 health.
 Bruce swings and misses!
      ,.          
@@ -216,10 +216,10 @@ Bruce swings and misses!
  ',/  / /        
  ''-  -          
 
-Master Sean punches Bruce!
+Master West punches Bruce!
 You are at 4 health.
 Bruce swings and misses!
-Master Sean swings hard but you dodge!
+Master West swings hard but you dodge!
      ,.          
     \-'_        
     / ___/o      
@@ -229,8 +229,8 @@ Master Sean swings hard but you dodge!
  ',/  / /        
  ''-  -          
 
-Bruce punches Master Sean!
-Master Sean is at 54 health.
+Bruce punches Master West!
+Master West is at 54 health.
      ,.          
     \-'_        
     / ___/o      
@@ -240,7 +240,7 @@ Master Sean is at 54 health.
  ',/  / /        
  ''-  -          
 
-Master Sean punches Bruce!
+Master West punches Bruce!
 You are at 1 health.
      ,.          
     \-'_        
@@ -251,9 +251,9 @@ You are at 1 health.
  ',/  / /        
  ''-  -          
 
-Bruce punches Master Sean!
-Master Sean is at 51 health.
-Master Sean swings hard but you dodge!
+Bruce punches Master West!
+Master West is at 51 health.
+Master West swings hard but you dodge!
      ,.          
     \-'_        
     / ___/o      
@@ -263,8 +263,8 @@ Master Sean swings hard but you dodge!
  ',/  / /        
  ''-  -          
 
-Bruce punches Master Sean!
-Master Sean is at 47 health.
+Bruce punches Master West!
+Master West is at 47 health.
      ,.          
     \-'_        
     / ___/o      
@@ -274,7 +274,7 @@ Master Sean is at 47 health.
  ',/  / /        
  ''-  -          
 
-Master Sean punches Bruce!
+Master West punches Bruce!
 You are at -2 health.
 You return to your dojo in shame... Your master asks you to commit seppuku...
 

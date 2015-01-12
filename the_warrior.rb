@@ -55,7 +55,7 @@ end # Villain constructor
 sleep 0.75
 puts "#{player.name} takes off after the villains!"
 puts
-names = ["Noel", "Ciara", "Alvin", "Jerome", "Tyler", "Kyle", "Katrina", "Marc", "Adam", "David", "Sean", "Gabriel", "Lauren", "Giraud", "Joe", "Joel", "Trey", "JSON", "Tiffany", "Rachel", "Andrew", "Will", "Ricki", "Shosh", "Gen", "Master Sean", "Crane Master Sam", "Drunken Master Crawford"]
+names = ["Noel", "Ciara", "Alvin", "Jerome", "Tyler", "Kyle", "Katrina", "Marc", "Adam", "David", "Sean", "Gabriel", "Lauren", "Giraud", "Joe", "Joel", "Trey", "JSON", "Tiffany", "Rachel", "Andrew", "Will", "Ricki", "Shosh", "Gen", "Master West", "Crane Master Sam", "Drunken Master Crawford"]
 shuffled = names.shuffle
 
 def encounter(player, shuffled)
@@ -66,7 +66,7 @@ def encounter(player, shuffled)
   baddie = Villain.new(villain, random_baddie_hp, random_baddie_hit)
 
   def increase_difficulty(baddie)
-    if baddie.name == "Master Sean" || baddie.name == "Crane Master Sam" || baddie.name == "Drunken Master Crawford" || baddie.name == "Jerome"
+    if baddie.name == "Master West" || baddie.name == "Crane Master Sam" || baddie.name == "Drunken Master Crawford" || baddie.name == "Jerome"
       # =~ /[Sean|Sam|Crawford]/ ask Sean about this
 
       baddie.hit_chance *= 2 # needs to be atleast 2 to be predictably hard
