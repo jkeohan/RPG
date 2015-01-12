@@ -12,13 +12,14 @@ lines.each {|each|
 puts "What is your name?"
 
 class Hero
-  attr_accessor :name, :max_hp, :hit_points, :hit_chance
+  attr_accessor :name, :max_hp, :hit_points, :hit_chance, :encounters
 
   def initialize(name, max_hp, hit_chance)
     @name = name
     @max_hp = max_hp
     @hit_points = max_hp
     @hit_chance = hit_chance
+    @encounters = 10
   end
 end # Hero constructor
 
@@ -38,23 +39,34 @@ end # Villain constructor
 new_name = gets.chomp.capitalize!
 
 player = Hero.new(new_name, 10, 80)
-sleep 1
+sleep 0.75
 puts "#{player.name} enters the arena!"
 
 
-encounter_count = 2
 
-def encounter(player, encounter_count)
-  villains = ["Trey", "JSON", "Tiffany", "Rachel", "David", "Andrew", "Will"]
+
+def encounter(player)
+  villains = ["Trey", "JSON", "Tiffany", "Rachel", "Andrew", "Will", "Ricki", "Shosh", "Gen", "Sean", "Sam", "Crawford"]
+  
   random_baddie_hp = rand(1..8)
   random_baddie_hit = rand(1..60)
-
+  
   baddie = Villain.new(villains.sample, random_baddie_hp, random_baddie_hit)
+  def increase_difficulty(baddie)
+  if baddie.name == "Sean" || baddie.name == "Sam" || baddie.name == "Crawford"
+    
+    baddie.hit_chance *= 2
+    baddie.hit_points *= 5
+  
+  end
+
+  increase_difficulty(baddie)
+end # villain generator
   puts "you have encountered #{baddie.name}. They appear to have #{baddie.hit_points} life and #{baddie.hit_chance} chance to hit"
 
 
-  def fight(player, baddie, encounter_count)
-    sleep 1
+  def fight(player, baddie)
+    sleep 0.75
     puts "#{player.name} attacks first with #{player.max_hp} life"
 
     while player.hit_points > 0 && baddie.hit_points > 0
@@ -64,16 +76,16 @@ def encounter(player, encounter_count)
 
       if player.hit_points > 0
         if player.hit_chance  > hero_hit
-          sleep 1
+          sleep 0.75
           puts "succesful hit!"
           baddie.hit_points -= rand(2..4)
           puts "#{baddie.name} is at #{baddie.hit_points}"
         else
-          sleep 1
+          sleep 0.75
           puts "you missed"
         end
       else
-        sleep 1
+        sleep 0.75
         puts "player dead"
 
       end
@@ -88,40 +100,40 @@ def encounter(player, encounter_count)
           puts "#{baddie.name} missed."
         end
       else
-        encounter_count -= 1
+        player.encounters -= 1
         player.max_hp += 1
-        puts "#{baddie.name} dead! #{player.name} is now at #{player.max_hp} life! #{encounter_count} more villains to go..."
+        puts "#{baddie.name} dead! #{player.name} is now at #{player.max_hp} life! #{player.encounters} more villains to go..."
       end
     end
 
   end #fight ends
 
-  def flee(player, baddie, encounter_count)
-    sleep 1
+  def flee(player, baddie)
+    sleep 0.75
     player.max_hp -= 2
-    puts "#{player.name} flees from #{baddie.name}. #{encounter_count} still to go... but you have only #{player.max_hp} life!"
+    puts "#{player.name} flees from #{baddie.name}. #{player.encounters} still to go... but you have only #{player.max_hp} life!"
   end
 
   fight_question = true
 
   while fight_question == true
-    sleep 1
+    sleep 0.75
     puts "... will #{player.name} fight or flee?"
     fight_flee = gets.chomp.downcase
     if fight_flee == "fight"
-      fight(player, baddie, encounter_count)
+      fight(player, baddie)
       fight_question = false
     elsif fight_flee == "flee"
-      flee(player, baddie, encounter_count)
+      flee(player, baddie)
       fight_question = false
     end
   end
 
 end
 
-while player.hit_points > 0
-  encounter(player, encounter_count)
-  if encounter_count == 0
+while player.encounters > 0 && player.hit_points > 0
+  encounter(player)
+  if player.encounters <= 0
     puts "You win!"
   end
   if player.hit_points <= 0
