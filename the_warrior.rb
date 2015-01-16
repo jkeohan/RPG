@@ -87,9 +87,10 @@ def encounter(player, shuffled)
     puts "#{player.name} attacks first with #{player.max_hp} health."
 
     moves = ["kicks", "punches", "FLYING KICKS"]
-    pick_move = moves.sample
-    def img_of_move(pick_move)
-      if pick_move == "kicks"
+    hero_move = moves.sample
+    baddie_move = moves.sample
+    def img_of_move(hero_move,baddie_move)
+      if hero_move == "kicks" || baddie_move == "kicks"
         puts "  ,.             "
         puts "  \\-'__          "
         puts " / o.__o____     "
@@ -98,7 +99,7 @@ def encounter(player, shuffled)
         puts "   | /           "
         puts "   \\_\\           "
         puts "   -''           "
-      elsif pick_move == "punches"
+      elsif  hero_move == "punches" || baddie_move == "punches"
         puts "     ,.          "
         puts "    \\-'_        "
         puts "    / ___/o      "
@@ -107,7 +108,7 @@ def encounter(player, shuffled)
         puts "  .'./\\ \\      "
         puts " ',/  / /        "
         puts " ''-  -          "
-      elsif pick_move == "FLYING KICKS"
+      elsif hero_move == "FLYING KICKS" || baddie_move == "FLYING KICKS"
         puts "                  .===                                "
         puts "                 / __)        _                       "
         puts "                 (  ||_.''.  {_}                      "
@@ -125,17 +126,19 @@ def encounter(player, shuffled)
 
       hero_hit = rand(0..100)
       baddie_hit = rand(0..100)
-      hero_move = pick_move
-      baddie_move = pick_move
+      #hero_move = pick_move
+      puts hero_move
+      #baddie_move = pick_move
+      puts baddie_move
       if player.hit_points > 0
         if player.hit_chance  > hero_hit
           sleep 0.75
-          img_of_move(pick_move)
+          img_of_move(hero_move,baddie_move)
           puts
           puts "#{player.name} #{hero_move} #{baddie.name}!"
 
           baddie.hit_points -= rand(2..4)
-          if pick_move == "FLYING KICKS"
+          if hero_move == "FLYING KICKS"
             baddie.hit_points -= rand(2..4)
           end
           puts "#{baddie.name} is at #{baddie.hit_points} health."
@@ -150,12 +153,12 @@ def encounter(player, shuffled)
       if baddie.hit_points > 0
         if baddie.hit_chance > baddie_hit
           sleep 0.75
-          img_of_move(pick_move)
+          img_of_move(hero_move,baddie_move)
           puts
           puts "#{baddie.name} #{baddie_move} #{player.name}!"
 
           player.hit_points -= rand(1..3)
-          if pick_move == "FLYING KICKS"
+          if baddie_move == "FLYING KICKS"
             player.hit_points -= rand(1..3)
           end
           puts "You are at #{player.hit_points} health."
